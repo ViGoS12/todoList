@@ -5,14 +5,36 @@
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 
   display: flex;
+
   gap: 1rem;
   width: 100%;
   font-size: 2rem;
   padding: 1rem;
   border-bottom: 1px solid lightgray;
 
+  &:hover {
+    .todoItem__deleteBtn {
+      opacity: 0.5;
+    }
+  }
+
+  &__task {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
   &__checkbox {
-    border-radius: 25%;
-    border: 1px solit #000;
+    width: 2rem;
+    height: 2rem;
+
+    cursor: pointer;
+  }
+
+  &__deleteBtn {
+    width: 1.5rem;
+    opacity: 0;
+    cursor: pointer;
   }
 }

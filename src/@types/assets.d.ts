@@ -11,5 +11,4 @@ declare module '*.svg' {
 type Todo = {
   id: number
   task: string
-  checked: boolean
 }

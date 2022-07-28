@@ -8,7 +8,7 @@ const DEFAULT_TODO = {
 }
 
 interface ITodoPanelProps {
-  addTodo: ({ task }: Omit<Todo, 'checked' | 'id'>) => void
+  addTodo: ({ task }: Omit<Todo, 'id'>) => void
 }
 
 const TodoPanel: React.FC<ITodoPanelProps> = ({ addTodo }) => {
@@ -17,7 +17,9 @@ const TodoPanel: React.FC<ITodoPanelProps> = ({ addTodo }) => {
 
   const keyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
-      addTodo({ task: todo.task })
+      todo.task.length === 0
+        ? alert('Empty Todo')
+        : addTodo({ task: todo.task })
       setTodo(DEFAULT_TODO)
     }
   }
