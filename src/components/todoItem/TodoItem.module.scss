@@ -1,0 +1,18 @@
+.todoItem {
+  background-color: white;
+  -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  font-size: 2rem;
+  padding: 1rem;
+  border-bottom: 1px solid lightgray;
+
+  &__checkbox {
+    border-radius: 25%;
+    border: 1px solit #000;
+  }
+}

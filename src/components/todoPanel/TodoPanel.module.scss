@@ -1,0 +1,28 @@
+.todoPanel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+
+  -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
+  &__task {
+    width: 100%;
+    font-size: 2rem;
+    padding: 1rem;
+
+    &::placeholder {
+      font-style: italic;
+      opacity: 0.5;
+    }
+  }
+
+  &__arrow {
+    padding-left: 1rem;
+    width: 2rem;
+    cursor: pointer;
+    opacity: 0.5;
+  }
+}
