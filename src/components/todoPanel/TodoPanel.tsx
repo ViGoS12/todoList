@@ -5,6 +5,7 @@ import Arrow from '../../assets/svg/arrowDown.svg'
 
 const DEFAULT_TODO = {
   task: '',
+  completed: false,
 }
 
 interface ITodoPanelProps {
@@ -19,7 +20,7 @@ const TodoPanel: React.FC<ITodoPanelProps> = ({ addTodo }) => {
     if (event.keyCode === 13) {
       todo.task.length === 0
         ? alert('Empty Todo')
-        : addTodo({ task: todo.task })
+        : addTodo({ task: todo.task, completed: false })
       setTodo(DEFAULT_TODO)
     }
   }

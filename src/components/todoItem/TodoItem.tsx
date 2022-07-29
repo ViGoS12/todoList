@@ -12,13 +12,13 @@ const TodoItem: React.FC<ITodoItemProps> = ({ todo, deleteTodo }) => {
 
   const setCheckbox = () => {
     setCheck(!checked)
+    todo.completed = !todo.completed
   }
-  console.log(checked)
+
   return (
     <div className={styles.todoItem}>
       <input
         type='checkbox'
-        onClick={setCheckbox}
         checked={checked}
         onChange={setCheckbox}
         className={styles.todoItem__checkbox}

@@ -6,9 +6,13 @@ import TodoPanel from './components/todoPanel'
 import TodoList from './components/todoList/'
 
 const DEFAULT_LIST = [
-  { id: 1, task: 'task 1' },
-  { id: 2, task: 'task 2' },
-  { id: 3, task: 'task 3' },
+  { id: 1, task: 'task 1', completed: false },
+  { id: 2, task: 'task 2', completed: false },
+  {
+    id: 3,
+    task: 'task 3',
+    completed: false,
+  },
 ]
 
 function App() {
@@ -16,12 +20,19 @@ function App() {
 
   const addTodo = ({ task }: Omit<Todo, 'id'>) => {
     todos.length > 0
-      ? setTodos([...todos, { id: todos[todos.length - 1].id + 1, task }])
-      : setTodos([{ id: 0, task }])
+      ? setTodos([
+          ...todos,
+          { id: todos[todos.length - 1].id + 1, task, completed: false },
+        ])
+      : setTodos([{ id: 1, task, completed: false }])
   }
 
   const deleteTodo = (id: Todo['id']) => {
     setTodos(todos.filter((todo) => todo.id !== id))
+  }
+
+  const deleteCompleteTodos = () => {
+    setTodos(todos.filter((todo) => todo.completed === false))
   }
 
   return (
@@ -31,7 +42,11 @@ function App() {
 
         <TodoPanel addTodo={addTodo} />
         <TodoList todos={todos} deleteTodo={deleteTodo} />
-        <Footer todoCount={todos.length} />
+        <Footer
+          todos={todos}
+          todoCount={todos.length}
+          deleteCompleteTodos={deleteCompleteTodos}
+        />
       </div>
     </div>
   )

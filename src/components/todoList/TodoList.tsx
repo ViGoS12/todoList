@@ -8,6 +8,7 @@ interface ITodoListProps {
 
 const TodoList: React.FC<ITodoListProps> = ({ todos, deleteTodo }) => {
   console.log(todos)
+
   return (
     <div className={styles.todoList}>
       {todos.map((todo) => (
