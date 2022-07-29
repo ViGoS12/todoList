@@ -2,19 +2,19 @@ import styles from './TodoPanel.module.scss'
 import { KeyboardEvent, useState } from 'react'
 
 import Arrow from '../../assets/svg/arrowDown.svg'
+import TodoProvider from './../../utils/context/TodoProvider'
+import useTodo from '../../utils/context/useTodo'
 
 const DEFAULT_TODO = {
   task: '',
   completed: false,
 }
 
-interface ITodoPanelProps {
-  addTodo: ({ task }: Omit<Todo, 'id'>) => void
-}
-
-const TodoPanel: React.FC<ITodoPanelProps> = ({ addTodo }) => {
+const TodoPanel: React.FC = () => {
   const [todo, setTodo] = useState(DEFAULT_TODO)
   console.log(todo)
+
+  const { addTodo } = useTodo()
 
   const keyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {

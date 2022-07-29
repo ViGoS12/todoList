@@ -1,14 +1,16 @@
 import styles from './TodoItem.module.scss'
 import DeleteBtn from '../../assets/svg/delete.svg'
 import { useState } from 'react'
+import useTodo from '../../utils/context/useTodo'
 
 interface ITodoItemProps {
   todo: Todo
-  deleteTodo: (id: Todo['id']) => void
 }
 
-const TodoItem: React.FC<ITodoItemProps> = ({ todo, deleteTodo }) => {
+const TodoItem: React.FC<ITodoItemProps> = ({ todo }) => {
   const [checked, setCheck] = useState(false)
+
+  const { deleteTodo } = useTodo()
 
   const setCheckbox = () => {
     setCheck(!checked)

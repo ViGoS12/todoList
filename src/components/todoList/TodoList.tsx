@@ -1,18 +1,14 @@
 import TodoItem from '../todoItem'
 import styles from './TodoList.module.scss'
+import useTodo from './../../utils/context/useTodo'
 
-interface ITodoListProps {
-  todos: Todo[]
-  deleteTodo: (id: Todo['id']) => void
-}
-
-const TodoList: React.FC<ITodoListProps> = ({ todos, deleteTodo }) => {
-  console.log(todos)
+const TodoList: React.FC = () => {
+  const { todos } = useTodo()
 
   return (
     <div className={styles.todoList}>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} />
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </div>
   )

@@ -1,25 +1,17 @@
 import styles from './Footer.module.scss'
 import { useState } from 'react'
 import classNames from 'classnames'
+import useTodo from './../../utils/context/useTodo'
 
-interface IHeaderProps {
-  todos: Todo[]
-  todoCount: number
-  deleteCompleteTodos: () => void
-}
-
-const Footer: React.FC<IHeaderProps> = ({
-  todos,
-  todoCount,
-  deleteCompleteTodos,
-}) => {
+const Footer: React.FC = () => {
   const [selected, setSelected] = useState(0)
+  const { todos, deleteCompleteTodos } = useTodo()
 
   return (
     <div className={styles.footer}>
       <div className={styles.footer__container}>
         <div className={styles.footer__count}>
-          <b>{todoCount}</b> items left
+          <b>{todos.length}</b> items left
         </div>
         <div className={styles.footer__buttons}>
           <button
