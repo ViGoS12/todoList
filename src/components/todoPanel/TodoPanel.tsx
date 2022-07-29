@@ -1,9 +1,8 @@
 import styles from './TodoPanel.module.scss'
 import { KeyboardEvent, useState } from 'react'
+import useTodo from '../../utils/context/useTodo'
 
 import Arrow from '../../assets/svg/arrowDown.svg'
-import TodoProvider from './../../utils/context/TodoProvider'
-import useTodo from '../../utils/context/useTodo'
 
 const DEFAULT_TODO = {
   task: '',
@@ -12,7 +11,6 @@ const DEFAULT_TODO = {
 
 const TodoPanel: React.FC = () => {
   const [todo, setTodo] = useState(DEFAULT_TODO)
-  console.log(todo)
 
   const { addTodo } = useTodo()
 

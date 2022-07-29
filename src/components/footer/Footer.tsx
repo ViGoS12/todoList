@@ -5,7 +5,13 @@ import useTodo from './../../utils/context/useTodo'
 
 const Footer: React.FC = () => {
   const [selected, setSelected] = useState(0)
-  const { todos, deleteCompleteTodos } = useTodo()
+  const {
+    todos,
+    deleteCompleteTodos,
+    showCompletedTask,
+    showAll,
+    showActiveTask,
+  } = useTodo()
 
   return (
     <div className={styles.footer}>
@@ -15,7 +21,10 @@ const Footer: React.FC = () => {
         </div>
         <div className={styles.footer__buttons}>
           <button
-            onClick={() => setSelected(0)}
+            onClick={() => {
+              setSelected(0)
+              showAll()
+            }}
             className={classNames(
               styles.footer__btn,
               selected === 0 ? styles.footer__select_btn : ''
@@ -23,7 +32,10 @@ const Footer: React.FC = () => {
             All
           </button>
           <button
-            onClick={() => setSelected(1)}
+            onClick={() => {
+              setSelected(1)
+              showActiveTask()
+            }}
             className={classNames(
               styles.footer__btn,
               selected === 1 ? styles.footer__select_btn : ''
@@ -31,7 +43,10 @@ const Footer: React.FC = () => {
             Active
           </button>
           <button
-            onClick={() => setSelected(2)}
+            onClick={() => {
+              setSelected(2)
+              showCompletedTask()
+            }}
             className={classNames(
               styles.footer__btn,
               selected === 2 ? styles.footer__select_btn : ''
