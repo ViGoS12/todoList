@@ -1,5 +1,5 @@
 import styles from './TodoPanel.module.scss'
-import { KeyboardEvent, useState } from 'react'
+import { KeyboardEvent, memo, useState } from 'react'
 import useTodo from '../../utils/context/useTodo'
 
 import Arrow from '../../assets/svg/arrowDown.svg'
@@ -45,4 +45,4 @@ const TodoPanel: React.FC = () => {
   )
 }
 
-export default TodoPanel
+export default memo(TodoPanel)

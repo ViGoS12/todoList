@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { TodoContext } from './TodoContext'
 
 interface ITodoProviderProps {
@@ -24,21 +24,24 @@ const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
       : setTodos([{ id: 1, task, completed: false }])
   }
 
-  const deleteTodo = (id: Todo['id']) => {
-    setTodos(todos.filter((todo) => todo.id !== id))
-  }
+  const deleteTodo = useCallback(
+    (id: Todo['id']) => {
+      setTodos(todos.filter((todo) => todo.id !== id))
+    },
+    [todos]
+  )
 
   const deleteCompleteTodos = () => {
     setTodos(todos.filter((todo) => todo.completed === false))
   }
 
-  const checkTodo = (id: Todo['id']) => {
+  const checkTodo = useCallback((id: Todo['id']) => {
     setTodos(
       todos.map((todo) => {
         return todo.id === id ? { ...todo, completed: !todo.completed } : todo
       })
     )
-  }
+  }, [])
 
   const showAll = () => {
     setActiveButton(0)
