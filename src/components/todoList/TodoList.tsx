@@ -1,21 +1,18 @@
 import TodoItem from '../todoItem'
 import styles from './TodoList.module.scss'
 import useTodo from './../../utils/context/useTodo'
+import useFilters from './../../hooks/useFilters'
 
 const TodoList: React.FC = () => {
-  const { todos, activeTodos, completedTodos } = useTodo()
+  const { todos, activeButton } = useTodo()
+
+  const filtered = useFilters(todos, activeButton)
 
   return (
     <div className={styles.todoList}>
-      {activeTodos
-        ? todos
-            .filter((e) => e.completed === false)
-            .map((todo) => <TodoItem key={todo.id} todo={todo} />)
-        : completedTodos
-        ? todos
-            .filter((e) => e.completed === true)
-            .map((todo) => <TodoItem key={todo.id} todo={todo} />)
-        : todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)}
+      {filtered.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
     </div>
   )
 }

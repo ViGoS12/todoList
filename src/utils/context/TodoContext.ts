@@ -1,11 +1,10 @@
-import React from 'react'
+import { createContext } from 'react'
 
 export interface ITodoContextProps {
   todos: Todo[]
-  activeTodos: Boolean
-  completedTodos: Boolean
-  addTodo: ({ task }: Omit<Todo, 'checked' | 'id'>) => void
+  activeButton: number
 
+  addTodo: ({ task }: Omit<Todo, 'id'>) => void
   deleteCompleteTodos: () => void
   deleteTodo: (id: Todo['id']) => void
   showAll: () => void
@@ -13,10 +12,9 @@ export interface ITodoContextProps {
   showCompletedTask: () => void
 }
 
-export const TodoContext = React.createContext<ITodoContextProps>({
+export const TodoContext = createContext<ITodoContextProps>({
   todos: [],
-  activeTodos: false,
-  completedTodos: false,
+  activeButton: 0,
   addTodo: () => {},
   deleteCompleteTodos: () => {},
   deleteTodo: () => {},

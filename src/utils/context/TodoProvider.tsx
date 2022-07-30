@@ -7,15 +7,14 @@ interface ITodoProviderProps {
 }
 
 const DEFAULT_LIST = [
-  { id: 1, task: 'task 1', completed: true },
+  { id: 1, task: 'task 1', completed: false },
   { id: 2, task: 'task 2', completed: false },
   { id: 3, task: 'task 3', completed: false },
 ]
 
 const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
   const [todos, setTodos] = useState(DEFAULT_LIST)
-  const [activeTodos, setActiveTodos] = useState(false)
-  const [completedTodos, setCompletedTodos] = useState(false)
+  const [activeButton, setActiveButton] = useState(0)
 
   const addTodo = ({ task }: Omit<Todo, 'id'>) => {
     todos.length > 0
@@ -38,25 +37,21 @@ const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
 
   const showAll = () => {
     setTodos(todos)
-    setActiveTodos(false)
-    setCompletedTodos(false)
+    setActiveButton(0)
   }
 
   const showActiveTask = () => {
-    setActiveTodos(true)
-    setCompletedTodos(false)
+    setActiveButton(1)
   }
 
   const showCompletedTask = () => {
-    setCompletedTodos(true)
-    setActiveTodos(false)
+    setActiveButton(2)
   }
 
   const value = useMemo(
     () => ({
       todos,
-      activeTodos,
-      completedTodos,
+      activeButton,
       addTodo,
       deleteCompleteTodos,
       deleteTodo,
@@ -66,8 +61,7 @@ const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
     }),
     [
       todos,
-      activeTodos,
-      completedTodos,
+      activeButton,
       addTodo,
       deleteCompleteTodos,
       deleteTodo,
