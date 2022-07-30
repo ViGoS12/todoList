@@ -13,11 +13,19 @@ const Footer: React.FC = () => {
     showActiveTask,
   } = useTodo()
 
+  const countActiveTask = todos.filter(
+    (todo) => todo.completed === false
+  ).length
+
+  const countCompletedTask = todos.filter(
+    (todo) => todo.completed === true
+  ).length
+
   return (
     <div className={styles.footer}>
       <div className={styles.footer__container}>
         <div className={styles.footer__count}>
-          <b>{todos.length}</b> items left
+          <b>{countActiveTask}</b> items left
         </div>
         <div className={styles.footer__buttons}>
           <button
@@ -54,11 +62,15 @@ const Footer: React.FC = () => {
             Completed
           </button>
         </div>
-        <button
-          className={styles.footer__btn}
-          onClick={() => deleteCompleteTodos()}>
-          Clear completed
-        </button>
+        <div className={styles.footer__last_btn}>
+          {countCompletedTask > 0 && (
+            <button
+              className={styles.footer__btn}
+              onClick={() => deleteCompleteTodos()}>
+              Clear completed
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )

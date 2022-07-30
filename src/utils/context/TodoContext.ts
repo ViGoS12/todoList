@@ -5,6 +5,7 @@ export interface ITodoContextProps {
   activeButton: number
 
   addTodo: ({ task }: Omit<Todo, 'id'>) => void
+  checkTodo: (id: Todo['id']) => void
   deleteCompleteTodos: () => void
   deleteTodo: (id: Todo['id']) => void
   showAll: () => void
@@ -15,6 +16,7 @@ export interface ITodoContextProps {
 export const TodoContext = createContext<ITodoContextProps>({
   todos: [],
   activeButton: 0,
+  checkTodo: () => {},
   addTodo: () => {},
   deleteCompleteTodos: () => {},
   deleteTodo: () => {},

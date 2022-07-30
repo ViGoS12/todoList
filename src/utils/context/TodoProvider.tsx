@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo, useState } from 'react'
 import { TodoContext } from './TodoContext'
 
@@ -25,14 +24,20 @@ const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
       : setTodos([{ id: 1, task, completed: false }])
   }
 
-  console.log(todos)
-
   const deleteTodo = (id: Todo['id']) => {
     setTodos(todos.filter((todo) => todo.id !== id))
   }
 
   const deleteCompleteTodos = () => {
     setTodos(todos.filter((todo) => todo.completed === false))
+  }
+
+  const checkTodo = (id: Todo['id']) => {
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      })
+    )
   }
 
   const showAll = () => {
@@ -47,29 +52,17 @@ const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
     setActiveButton(2)
   }
 
-  const value = useMemo(
-    () => ({
-      todos,
-      activeButton,
-      addTodo,
-      deleteCompleteTodos,
-      deleteTodo,
-      showCompletedTask,
-      showAll,
-      showActiveTask,
-    }),
-    [
-      todos,
-      activeButton,
-      addTodo,
-      deleteCompleteTodos,
-      deleteTodo,
-      showCompletedTask,
-      showAll,
-      showActiveTask,
-    ]
-  )
-
+  const value = {
+    todos,
+    activeButton,
+    addTodo,
+    checkTodo,
+    deleteCompleteTodos,
+    deleteTodo,
+    showCompletedTask,
+    showAll,
+    showActiveTask,
+  }
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>
 }
 

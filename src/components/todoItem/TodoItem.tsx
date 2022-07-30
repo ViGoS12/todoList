@@ -1,41 +1,40 @@
 import styles from './TodoItem.module.scss'
 import DeleteBtn from '../../assets/svg/delete.svg'
-import { useState } from 'react'
 import useTodo from '../../utils/context/useTodo'
+import { memo } from 'react'
+import useWhyDidYouUpdate from './../../hooks/useWhyDidYouUpdate'
 
 interface ITodoItemProps {
   todo: Todo
 }
 
 const TodoItem: React.FC<ITodoItemProps> = ({ todo }) => {
-  const [checked, setCheck] = useState(false)
+  const { checkTodo, deleteTodo } = useTodo()
 
-  const { deleteTodo } = useTodo()
-
-  const setCheckbox = () => {
-    setCheck(!checked)
-    todo.completed = !todo.completed
-  }
-
+  useWhyDidYouUpdate('update', todo)
+  console.log('render')
   return (
     <div className={styles.todoItem}>
       <input
         type='checkbox'
         checked={todo.completed}
-        onChange={setCheckbox}
+        onChange={() => checkTodo(todo.id)}
         className={styles.todoItem__checkbox}
       />
 
       <div
         className={styles.todoItem__task}
-        onClick={setCheckbox}
+        onClick={() => checkTodo(todo.id)}
         style={{
           opacity: todo.completed ? 0.5 : 1,
           textDecoration: todo.completed ? 'line-through' : 'none',
         }}>
         {todo.task}
         <img
-          onClick={() => deleteTodo(todo.id)}
+          onClick={(e) => {
+            e.stopPropagation()
+            deleteTodo(todo.id)
+          }}
           className={styles.todoItem__deleteBtn}
           src={DeleteBtn}
           alt=''
@@ -45,4 +44,4 @@ const TodoItem: React.FC<ITodoItemProps> = ({ todo }) => {
   )
 }
 
-export default TodoItem
+export default memo(TodoItem)

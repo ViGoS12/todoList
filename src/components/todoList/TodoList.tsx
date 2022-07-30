@@ -7,7 +7,7 @@ const TodoList: React.FC = () => {
   const { todos, activeButton } = useTodo()
 
   const filtered = useFilters(todos, activeButton)
-
+  console.log(todos)
   return (
     <div className={styles.todoList}>
       {filtered.map((todo) => (
