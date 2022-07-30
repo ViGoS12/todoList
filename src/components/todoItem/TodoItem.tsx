@@ -21,7 +21,7 @@ const TodoItem: React.FC<ITodoItemProps> = ({ todo }) => {
     <div className={styles.todoItem}>
       <input
         type='checkbox'
-        checked={checked}
+        checked={todo.completed}
         onChange={setCheckbox}
         className={styles.todoItem__checkbox}
       />
@@ -30,8 +30,8 @@ const TodoItem: React.FC<ITodoItemProps> = ({ todo }) => {
         className={styles.todoItem__task}
         onClick={() => setCheck(!checked)}
         style={{
-          opacity: checked ? 0.5 : 1,
-          textDecoration: checked ? 'line-through' : 'none',
+          opacity: todo.completed ? 0.5 : 1,
+          textDecoration: todo.completed ? 'line-through' : 'none',
         }}>
         {todo.task}
         <img

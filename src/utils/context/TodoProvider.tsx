@@ -36,7 +36,6 @@ const TodoProvider: React.FC<ITodoProviderProps> = ({ children }) => {
   }
 
   const showAll = () => {
-    setTodos(todos)
     setActiveButton(0)
   }
 
