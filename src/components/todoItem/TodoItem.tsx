@@ -28,7 +28,7 @@ const TodoItem: React.FC<ITodoItemProps> = ({ todo }) => {
 
       <div
         className={styles.todoItem__task}
-        onClick={() => setCheck(!checked)}
+        onClick={setCheckbox}
         style={{
           opacity: todo.completed ? 0.5 : 1,
           textDecoration: todo.completed ? 'line-through' : 'none',
