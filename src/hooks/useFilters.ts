@@ -1,5 +1,5 @@
-const useFilters = (todos: Todo[], activeButton: number) => {
-  switch (activeButton) {
+const useFilters = (todos: Todo[], filter: number) => {
+  switch (filter) {
     case 0:
       return todos
     case 1:

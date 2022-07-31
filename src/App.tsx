@@ -3,20 +3,29 @@ import './scss/App.scss'
 import Footer from './components/footer'
 import TodoPanel from './components/todoPanel'
 import TodoList from './components/todoList/'
-import TodoProvider from './utils/context/TodoProvider'
+import useTodo from './utils/context/useTodo'
+import { addTodo } from './utils/context/reducer'
+import { useCallback } from 'react'
 
 function App() {
+  const { state, dispatch } = useTodo()
+
+  const handelAddTodo = useCallback(
+    (task: string) => {
+      dispatch(addTodo(task))
+    },
+    [dispatch]
+  )
+
   return (
-    <TodoProvider>
-      <div className='app'>
-        <div className='app__container'>
-          <div className='app__title'>todos</div>
-          <TodoPanel />
-          <TodoList />
-          <Footer />
-        </div>
+    <div className="app">
+      <div className="app__container">
+        <div className="app__title">todos</div>
+        <TodoPanel onKeyDown={handelAddTodo} />
+        <TodoList />
+        <Footer />
       </div>
-    </TodoProvider>
+    </div>
   )
 }
 
