@@ -2,16 +2,16 @@ import styles from './Footer.module.scss'
 import { useState } from 'react'
 import classNames from 'classnames'
 import useTodo from './../../utils/context/useTodo'
+import {
+  changeFilter,
+  deleteCompleteTodos,
+  State,
+} from '../../utils/context/reducer'
 
 const Footer: React.FC = () => {
   const [selected, setSelected] = useState(0)
-  const {
-    todos,
-    deleteCompleteTodos,
-    showCompletedTask,
-    showAll,
-    showActiveTask,
-  } = useTodo()
+  const { state, dispatch } = useTodo()
+  const { filter, todos } = state
 
   const countActiveTask = todos.filter(
     (todo) => todo.completed === false
@@ -20,6 +20,10 @@ const Footer: React.FC = () => {
   const countCompletedTask = todos.filter(
     (todo) => todo.completed === true
   ).length
+
+  const setFilter = (filter: State['filter']) => {
+    dispatch(changeFilter(filter))
+  }
 
   return (
     <div className={styles.footer}>
@@ -30,35 +34,35 @@ const Footer: React.FC = () => {
         <div className={styles.footer__buttons}>
           <button
             onClick={() => {
-              setSelected(0)
-              showAll()
+              setFilter(0)
             }}
             className={classNames(
               styles.footer__btn,
-              selected === 0 ? styles.footer__select_btn : ''
-            )}>
+              filter === 0 ? styles.footer__select_btn : ''
+            )}
+          >
             All
           </button>
           <button
             onClick={() => {
-              setSelected(1)
-              showActiveTask()
+              setFilter(1)
             }}
             className={classNames(
               styles.footer__btn,
-              selected === 1 ? styles.footer__select_btn : ''
-            )}>
+              filter === 1 ? styles.footer__select_btn : ''
+            )}
+          >
             Active
           </button>
           <button
             onClick={() => {
-              setSelected(2)
-              showCompletedTask()
+              setFilter(2)
             }}
             className={classNames(
               styles.footer__btn,
-              selected === 2 ? styles.footer__select_btn : ''
-            )}>
+              filter === 2 ? styles.footer__select_btn : ''
+            )}
+          >
             Completed
           </button>
         </div>
@@ -66,7 +70,8 @@ const Footer: React.FC = () => {
           {countCompletedTask > 0 && (
             <button
               className={styles.footer__btn}
-              onClick={() => deleteCompleteTodos()}>
+              onClick={() => dispatch(deleteCompleteTodos())}
+            >
               Clear completed
             </button>
           )}

@@ -1,6 +1,5 @@
 import styles from './TodoPanel.module.scss'
-import { KeyboardEvent, useState } from 'react'
-import useTodo from '../../utils/context/useTodo'
+import { KeyboardEvent, memo, useState } from 'react'
 
 import Arrow from '../../assets/svg/arrowDown.svg'
 
@@ -9,16 +8,16 @@ const DEFAULT_TODO = {
   completed: false,
 }
 
-const TodoPanel: React.FC = () => {
+interface ITodoPanelmProps {
+  onKeyDown: (task: string) => void
+}
+
+const TodoPanel: React.FC<ITodoPanelmProps> = ({ onKeyDown }) => {
   const [todo, setTodo] = useState(DEFAULT_TODO)
 
-  const { addTodo } = useTodo()
-
   const keyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.keyCode === 13) {
-      todo.task.length === 0
-        ? alert('Empty Todo')
-        : addTodo({ task: todo.task, completed: false })
+    if (event.key === 'Enter') {
+      todo.task.length === 0 ? alert('Empty Todo') : onKeyDown(todo.task)
       setTodo(DEFAULT_TODO)
     }
   }
@@ -30,19 +29,19 @@ const TodoPanel: React.FC = () => {
 
   return (
     <div className={styles.todoPanel}>
-      <img className={styles.todoPanel__arrow} src={Arrow} alt='' />
+      <img className={styles.todoPanel__arrow} src={Arrow} alt="" />
       <input
-        placeholder='What needs to do?'
+        placeholder="What needs to do?"
         className={styles.todoPanel__task}
-        type='text'
+        type="text"
         value={todo.task}
-        id='name'
-        name='task'
+        id="name"
+        name="task"
         onChange={onChange}
-        onKeyDown={(event) => keyDown(event)}
+        onKeyDown={keyDown}
       />
     </div>
   )
 }
 
-export default TodoPanel
+export default memo(TodoPanel)
